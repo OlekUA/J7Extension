@@ -1,0 +1,250 @@
+/* J7Vamp Extension Styles */
+
+.vamp-button {
+    /* Colors are set by JavaScript for customization */
+    padding: 8px 12px !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif !important;
+    letter-spacing: 0.2px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    margin-left: 8px !important;
+    flex-shrink: 0 !important;
+    z-index: 1 !important;
+    position: relative !important;
+    line-height: 1.5 !important;
+}
+
+.vamp-button:active {
+    transform: scale(0.98) !important;
+}
+
+.vamp-button:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+
+
+/* Ensure VAMP button is visible on various layouts */
+.vamp-button {
+    display: inline-flex;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    vertical-align: middle !important;
+}
+
+/* Override any conflicting styles */
+.vamp-button * {
+    pointer-events: none !important;
+}
+
+/* Small VAMP button for detailed cards */
+.vamp-button-small {
+    /* Colors are set by JavaScript for customization */
+    padding: 6px 10px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif !important;
+    letter-spacing: 0.2px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap !important;
+    margin-right: 8px !important;
+    flex-shrink: 0 !important;
+    display: inline-flex;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 32px !important;
+    height: 28px !important;
+    z-index: 1 !important;
+    position: relative !important;
+}
+
+.vamp-button-small:active {
+    transform: scale(0.95) !important;
+}
+
+.vamp-button-small:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+.vamp-button-small * {
+    pointer-events: none !important;
+}
+
+/* Ensure VAMP buttons don't interfere with modals and overlays */
+[role="dialog"] .vamp-button,
+[role="dialog"] .vamp-button-small,
+.fixed.inset-0 .vamp-button,
+.fixed.inset-0 .vamp-button-small,
+[class*="modal"] .vamp-button,
+[class*="modal"] .vamp-button-small,
+[class*="popup"] .vamp-button,
+[class*="popup"] .vamp-button-small,
+[class*="search"] .vamp-button,
+[class*="search"] .vamp-button-small,
+.bg-backgroundTertiary.border-secondaryStroke .vamp-button,
+.bg-backgroundTertiary.border-secondaryStroke .vamp-button-small,
+[class*="shadow-"][class*="overflow-hidden"][class*="pointer-events-auto"] .vamp-button,
+[class*="shadow-"][class*="overflow-hidden"][class*="pointer-events-auto"] .vamp-button-small {
+    z-index: 1 !important;
+    position: relative !important;
+}
+
+/* Hide only small VAMP buttons in modals, keep big VAMP buttons visible */
+[role="dialog"] .vamp-button-small,
+.fixed.inset-0 .vamp-button-small {
+    display: none !important;
+}
+
+/* Big VAMP buttons in modals should have higher z-index but not interfere */
+[role="dialog"] .vamp-button,
+.fixed.inset-0 .vamp-button {
+    z-index: 10 !important;
+    position: relative !important;
+}
+
+/* ==================== GMGN.AI STYLES ==================== */
+
+.gmgn-vamp-button {
+    /* Colors are set by JavaScript for customization */
+    /* Match Axiom small VAMP button exactly */
+    padding: 5px 9px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    white-space: nowrap !important;
+    margin-right: 8px !important;
+    flex-shrink: 0 !important;
+    z-index: 9999 !important;
+    position: relative !important;
+    height: 24px !important;
+    min-width: 28px !important;
+    gap: 2px !important;
+    display: inline-flex;
+    align-items: center !important;
+    justify-content: center !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.gmgn-vamp-button:active {
+    transform: scale(0.98) !important;
+}
+
+.gmgn-vamp-button:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+.gmgn-vamp-button * {
+    pointer-events: none !important;
+}
+
+/* ==================== PADRE.GG STYLES ==================== */
+
+.padre-vamp-button {
+    /* Colors are set by JavaScript for customization */
+    /* Match Axiom small VAMP button exactly */
+    padding: 5px 9px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'SF Pro Display', Roboto, Helvetica, Arial, sans-serif !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 6px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    white-space: nowrap !important;
+    margin-right: 8px !important;
+    flex-shrink: 0 !important;
+    display: inline-flex;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 28px !important;
+    height: 24px !important;
+    z-index: 9999 !important;
+    position: relative !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.padre-vamp-button:active {
+    transform: scale(0.95) !important;
+}
+
+.padre-vamp-button:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+}
+
+.padre-vamp-button * {
+    pointer-events: none !important;
+}
+
+/* Large VAMP buttons - Padre token page */
+.padre-token-page-vamp-button {
+    /* Colors are set by JavaScript for customization */
+    background: #18181b !important;
+    padding: 10px 20px !important;
+    height: 40px !important;
+    min-width: 90px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    white-space: nowrap !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    z-index: 9999 !important;
+    margin-left: 8px !important;
+    margin-top: 8px !important;
+}
+
+.padre-token-page-vamp-button:hover {
+    background: #27272a !important;
+    transform: scale(1.02) !important;
+}
+
+.padre-token-page-vamp-button * {
+    pointer-events: none !important;
+}
+
+/* Large VAMP buttons - GMGN token page */
+.gmgn-vamp-token-page-button {
+    /* Colors are set by JavaScript for customization */
+    background: #18181b !important;
+    padding: 8px 16px !important;
+    height: 40px !important;
+    min-width: 80px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+    white-space: nowrap !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    z-index: 9999 !important;
+}
+
+.gmgn-vamp-token-page-button:hover {
+    background: #27272a !important;
+}
+
+.gmgn-vamp-token-page-button * {
+    pointer-events: none !important;
+}
