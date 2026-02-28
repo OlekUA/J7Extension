@@ -1,0 +1,111 @@
+{
+  "manifest_version": 3,
+  "name": "J7Extension",
+  "version": "2.05",
+  "description": "J7Extension, discord.gg/j7tracker",
+  "author": "J7Tracker",
+  "homepage_url": "https://j7tracker.io",
+  "icons": {
+    "128": "icon.png"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "tabs",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://j7tracker.io/*",
+    "https://*.j7tracker.io/*",
+    "https://j7tracker.com/*",
+    "https://*.j7tracker.com/*",
+    "https://axiom.trade/*",
+    "https://*.axiom.trade/*",
+    "https://gmgn.ai/*",
+    "https://*.gmgn.ai/*",
+    "https://padre.gg/*",
+    "https://*.padre.gg/*",
+    "https://www.google.com/*",
+    "https://google.com/*",
+    "https://x.com/*",
+    "https://twitter.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://j7tracker.io/*",
+        "https://*.j7tracker.io/*",
+        "https://j7tracker.com/*",
+        "https://*.j7tracker.com/*",
+        "https://axiom.trade/*",
+        "https://*.axiom.trade/*",
+        "https://gmgn.ai/*",
+        "https://*.gmgn.ai/*",
+        "https://padre.gg/*",
+        "https://*.padre.gg/*",
+        "https://www.google.com/*",
+        "https://google.com/*",
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": ["vamp/vamp-config.js", "content.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://www.google.com/search*",
+        "https://google.com/search*"
+      ],
+      "js": ["vamp/vamp-config.js", "google.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://axiom.trade/*",
+        "https://*.axiom.trade/*"
+      ],
+      "js": ["vamp/vamp-config.js", "vamp/axiom.js"],
+      "css": ["vamp/styles.css"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://gmgn.ai/*",
+        "https://*.gmgn.ai/*"
+      ],
+      "js": ["vamp/vamp-config.js", "vamp/gmgn.js"],
+      "css": ["vamp/styles.css"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://padre.gg/*",
+        "https://*.padre.gg/*"
+      ],
+      "js": ["vamp/vamp-config.js", "vamp/padre.js"],
+      "css": ["vamp/styles.css"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://twitter.com/*"
+      ],
+      "js": ["vamp/vamp-config.js", "vamp/twitter.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "J7Extension"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/*.png", "icons/*.svg"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+} 

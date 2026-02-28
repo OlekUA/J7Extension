@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J7 Image Extension</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            width: 380px;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #2b2d31;
+            color: #dbdee1;
+        }
+        
+        .header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3f4147;
+        }
+        
+        .title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f2f3f5;
+            margin-bottom: 4px;
+        }
+        
+        .subtitle {
+            font-size: 12px;
+            color: #b5bac1;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #949ba4;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .keybind-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 6px;
+            background: #383a40;
+            border-radius: 4px;
+            border: 1px solid #3f4147;
+        }
+        
+        .keybind-label {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #dbdee1;
+        }
+        
+        .keybind-badge {
+            background: #1e1f22;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #3f4147;
+            color: #00a8fc;
+        }
+        
+        .keybind-default {
+            background: #248046;
+            color: #ffffff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+        
+        .add-form {
+            margin-top: 12px;
+            padding: 12px;
+            background: #383a40;
+            border-radius: 4px;
+            border: 1px solid #3f4147;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            color: #dbdee1;
+            padding: 8px 12px;
+            background: #383a40;
+            border-radius: 4px;
+            transition: background 0.15s;
+        }
+        
+        .checkbox-label:hover {
+            background: #404249;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+        }
+        
+        input[type="text"], input[type="password"], input[type="number"] {
+            width: 100%;
+            padding: 10px 12px;
+            background: #1e1f22;
+            border: 1px solid #3f4147;
+            border-radius: 4px;
+            color: #dbdee1;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        
+        input[type="text"]:focus, input[type="password"]:focus, input[type="number"]:focus {
+            border-color: #00a8fc;
+        }
+        
+        input[type="text"]::placeholder, input[type="password"]::placeholder, input[type="number"]::placeholder {
+            color: #5c5e66;
+        }
+        
+        .button {
+            width: 100%;
+            padding: 10px 16px;
+            background: #5865f2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        
+        .button:hover {
+            background: #4752c4;
+        }
+        
+        .button:active {
+            background: #3c45a5;
+        }
+        
+        .button.recording {
+            background: #da373c;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .button.remove {
+            background: #da373c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 11px;
+            width: auto;
+        }
+        
+        .button.remove:hover {
+            background: #a12d30;
+        }
+        
+        .button.toggle {
+            background: #248046;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 11px;
+            width: auto;
+        }
+        
+        .button.toggle:hover {
+            background: #1a6334;
+        }
+        
+        .button.toggle.disabled {
+            background: #4e5058;
+        }
+        
+        .button.toggle.disabled:hover {
+            background: #3f4147;
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 10px;
+            color: #80848e;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #3f4147;
+        }
+        
+        .color-grid {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        
+        .color-btn {
+            width: 28px;
+            height: 28px;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        
+        .color-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        
+        .color-btn.selected {
+            border-color: #fff;
+            box-shadow: 0 0 0 2px #00a8fc, 0 2px 6px rgba(0,0,0,0.3);
+        }
+        
+        .style-toggle {
+            display: flex;
+            background: #1e1f22;
+            border-radius: 6px;
+            padding: 2px;
+            border: 1px solid #3f4147;
+        }
+        
+        .style-btn {
+            background: transparent;
+            border: none;
+            color: #b5bac1;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+        
+        .style-btn:hover {
+            color: #dbdee1;
+        }
+        
+        .style-btn.active {
+            background: #5865f2;
+            color: white;
+        }
+        
+        .pos-btn {
+            background: transparent;
+            border: none;
+            color: #b5bac1;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+        
+        .pos-btn:hover {
+            color: #dbdee1;
+        }
+        
+        .pos-btn.active {
+            background: #5865f2;
+            color: white;
+        }
+        
+        .site-btn {
+            background: transparent;
+            border: none;
+            color: #b5bac1;
+            padding: 6px 14px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s;
+        }
+        
+        .site-btn:hover {
+            color: #dbdee1;
+        }
+        
+        .site-btn.active {
+            background: #5865f2;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">J7Extension</div>
+        <div class="subtitle">Keybind Configuration</div>
+        <a href="https://youtu.be/nmcE_QAGdBQ" target="_blank" style="display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 12px 16px; background: linear-gradient(135deg, #1a1b1e, #2a2d35); border-radius: 8px; font-size: 14px; color: #ffffff; border: 1px solid #00a8fc; text-decoration: none; transition: all 0.2s; cursor: pointer;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#FF0000" style="flex-shrink: 0;"><path d="M23.5 6.2c-.3-1-1-1.8-2-2.1C19.6 3.5 12 3.5 12 3.5s-7.6 0-9.5.6c-1 .3-1.8 1-2.1 2C0 8.1 0 12 0 12s0 3.9.4 5.8c.3 1 1 1.8 2.1 2.1 1.9.6 9.5.6 9.5.6s7.6 0 9.5-.6c1-.3 1.8-1 2-2.1.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
+            <div style="display: flex; flex-direction: column; gap: 2px;">
+                <span style="font-weight: 700; font-size: 14px;">Watch Tutorial Video</span>
+                <span style="font-size: 11px; color: #8a8e94;">youtu.be/nmcE_QAGdBQ</span>
+            </div>
+        </a>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Which site are you using?</div>
+        <div class="style-toggle" style="width: fit-content;">
+            <button id="siteComBtn" class="site-btn" data-site="j7tracker.com">j7tracker.com</button>
+            <button id="siteIoBtn" class="site-btn active" data-site="j7tracker.io">j7tracker.io</button>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Platform Selection <span style="font-size: 9px; color: #5c5e66; text-transform: none; letter-spacing: 0;">(for auto-search)</span></div>
+        <div class="style-toggle" style="width: fit-content;" id="platformToggle">
+            <button class="style-btn" data-platform="axiom" style="display: flex; align-items: center; gap: 5px; padding: 5px 10px;">
+                <img src="icons/axiom-logo.svg" width="14" height="14" style="border-radius: 2px;">
+                <span style="font-size: 11px;">Axiom</span>
+            </button>
+            <button class="style-btn" data-platform="terminal" style="display: flex; align-items: center; gap: 5px; padding: 5px 10px;">
+                <img src="icons/terminal.svg" width="14" height="14" style="border-radius: 2px;">
+                <span style="font-size: 11px;">Terminal</span>
+            </button>
+            <button class="style-btn" data-platform="gmgn" style="display: flex; align-items: center; gap: 5px; padding: 5px 10px;">
+                <img src="icons/gmgn.svg" width="14" height="14" style="border-radius: 2px;">
+                <span style="font-size: 11px;">GMGN</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Features</div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="vampButtonsToggle" checked>
+            <span>Search modal and token page VAMP buttons.</span>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="newPairsVampButtonsToggle" checked>
+            <span>New Pairs VAMP Buttons</span>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="vampFetchModeToggle">
+            <span>Axiom Direct Fetch Mode</span>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="insertImageButtonToggle" checked>
+            <span>Insert Image Button</span>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="newPairsInsertImageToggle" checked>
+            <span>New Pairs Insert Image</span>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="twitterDeployButtonsToggle" checked>
+            <span>X/Twitter Deploy Button</span>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="deployButtonsToggle">
+            <span>Deploy Buttons</span>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="autoSearchToggle" checked>
+            <span>Auto-search</span>
+        </div>
+        <div id="autoSearchSubToggles" style="margin-left: 24px; margin-top: -2px; margin-bottom: 4px;">
+            <div class="checkbox-label" style="padding: 5px 10px; font-size: 12px;">
+                <input type="checkbox" id="autoSearchGoogleToggle">
+                <span style="font-size: 12px; color: #b5bac1;">Google Images</span>
+            </div>
+        </div>
+        <div class="checkbox-label">
+            <input type="checkbox" id="tokenFilterSearchToggle">
+            <span>Token Filter Search</span>
+        </div>
+        
+        <div style="margin-top: 12px;">
+            <label style="display: block; font-size: 12px; margin-bottom: 4px; color: #b5bac1;">
+                VAMP Username <span style="color: #5c5e66; font-style: italic;">(OPTIONAL)</span>
+            </label>
+            <input type="text" id="vampUsernameInput" placeholder="Your J7 username" style="width: 100%;">
+            <div style="font-size: 10px; color: #5c5e66; margin-top: 4px; line-height: 1.4;">
+                Only useful if someone else on your IP (brother, friend) also uses J7 and you don't want VAMP to open for them.
+            </div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">New Pairs VAMP Button Size</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <input type="range" id="smallVampSizeSlider" min="0.6" max="1.8" step="0.1" value="1" style="flex: 1; cursor: pointer;">
+            <span id="smallVampSizeValue" style="min-width: 40px; text-align: center; font-size: 13px; font-weight: 600; color: #00a8fc;">1.0x</span>
+        </div>
+        <div style="font-size: 10px; color: #5c5e66; margin-top: 4px;">
+            Adjusts the size of icon-only VAMP buttons on token lists.
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">New Pairs VAMP Button Position</div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <div class="style-toggle" style="width: fit-content;">
+                <button id="posBeforeBtn" class="pos-btn active" data-position="before">Before Ticker</button>
+                <button id="posAfterBtn" class="pos-btn" data-position="after">After Ticker</button>
+            </div>
+            <button id="applyPositionBtn" class="button" style="width: auto; padding: 6px 16px; font-size: 12px; display: none;">Apply</button>
+        </div>
+        
+        <!-- Visual Preview -->
+        <div id="positionPreview" style="margin-top: 12px; padding: 10px 12px; background: #1a1b1e; border-radius: 6px; border: 1px solid #3f4147;">
+            <div style="font-size: 9px; color: #5c5e66; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">Preview</div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <!-- Token Image -->
+                <div style="width: 36px; height: 36px; background: linear-gradient(135deg, #3b82f6, #8b5cf6); border-radius: 6px; flex-shrink: 0;"></div>
+                
+                <!-- Token Info -->
+                <div style="display: flex; align-items: center; gap: 6px; flex: 1;">
+                    <!-- VAMP Button (Before) -->
+                    <div id="previewVampBefore" style="display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 20px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 4px; flex-shrink: 0;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+                            <line x1="13" x2="19" y1="19" y2="13"/>
+                            <line x1="16" x2="20" y1="16" y2="20"/>
+                            <line x1="19" x2="21" y1="21" y2="19"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- Ticker -->
+                    <span style="font-size: 13px; font-weight: 600; color: #f2f3f5;">TOKEN</span>
+                    
+                    <!-- VAMP Button (After) -->
+                    <div id="previewVampAfter" style="display: none; align-items: center; justify-content: center; width: 24px; height: 20px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 4px; flex-shrink: 0;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+                            <line x1="13" x2="19" y1="19" y2="13"/>
+                            <line x1="16" x2="20" y1="16" y2="20"/>
+                            <line x1="19" x2="21" y1="21" y2="19"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- Token Name -->
+                    <span style="font-size: 11px; color: #949ba4; margin-left: 4px;">Token Name</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="font-size: 10px; color: #5c5e66; margin-top: 6px;">
+            Click Apply to reload pages with the new position.
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">VAMP Button Color</div>
+        <div class="color-grid">
+            <button class="color-btn" data-color="#ef4444" style="background: #ef4444;"></button>
+            <button class="color-btn" data-color="#f97316" style="background: #f97316;"></button>
+            <button class="color-btn" data-color="#eab308" style="background: #eab308;"></button>
+            <button class="color-btn" data-color="#22c55e" style="background: #22c55e;"></button>
+            <button class="color-btn" data-color="#14b8a6" style="background: #14b8a6;"></button>
+            <button class="color-btn" data-color="#3b82f6" style="background: #3b82f6;"></button>
+            <button class="color-btn" data-color="#8b5cf6" style="background: #8b5cf6;"></button>
+            <button class="color-btn" data-color="#ec4899" style="background: #ec4899;"></button>
+            <button class="color-btn" data-color="#000000" style="background: #000000;"></button>
+            <div id="customColorPreview" style="width: 28px; height: 28px; border-radius: 4px; border: 2px solid #3f4147; cursor: pointer; flex-shrink: 0;"></div>
+            <input type="text" id="customColorInput" placeholder="#hex" style="width: 70px; font-family: 'Courier New', monospace; font-size: 11px; padding: 6px 8px;">
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+            <div class="style-toggle">
+                <button id="styleFillBtn" class="style-btn" data-style="fill">Fill</button>
+                <button id="styleTranslucentBtn" class="style-btn active" data-style="translucent">Translucent</button>
+            </div>
+            <button id="vampPreviewBtn" style="background: linear-gradient(135deg, #ef4444, #dc2626, #b91c1c); color: white; border: none; padding: 5px 10px; font-size: 11px; font-weight: 600; border-radius: 5px; display: inline-flex; align-items: center; gap: 5px; cursor: default;">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+                    <line x1="13" x2="19" y1="19" y2="13"/>
+                    <line x1="16" x2="20" y1="16" y2="20"/>
+                    <line x1="19" x2="21" y1="21" y2="19"/>
+                    <polyline points="14.5 6.5 18 3 21 3 21 6 17.5 9.5"/>
+                    <line x1="5" x2="9" y1="14" y2="18"/>
+                    <line x1="7" x2="4" y1="17" y2="20"/>
+                    <line x1="3" x2="5" y1="19" y2="21"/>
+                </svg>
+                VAMP
+            </button>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Active Keybinds</div>
+        <div id="keybindsList"></div>
+        
+        <div class="add-form">
+            <div id="recordingStatus" style="font-size: 12px; color: #666; margin-bottom: 8px; min-height: 18px;"></div>
+            <button class="button" id="recordKeybind">Record New Keybind</button>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="section-title">Deploy Settings</div>
+        
+        <div style="margin-bottom: 16px;">
+            <div style="font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #f2f3f5;">Solana Deploys (USD1, BONK, PUMP)</div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; margin-bottom: 4px; color: #b5bac1;">API Key</label>
+                <input type="password" id="apiKeyInput" placeholder="Enter your encrypted API key" style="width: 100%;">
+                <div id="apiKeyError" style="font-size: 10px; color: #dc2626; margin-top: 2px; min-height: 14px;"></div>
+                <div style="font-size: 10px; color: #8e9297; margin-top: 4px;">
+                    Learn how to get your API key at <a href="https://j7tracker.io/external/docs" target="_blank" style="color: #00a8fc; text-decoration: none;">j7tracker.io/external/docs</a>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; margin-bottom: 4px; color: #b5bac1;">Buy Amount (SOL)</label>
+                <input type="number" id="buyAmountInput" placeholder="5" min="0" step="0.1" style="width: 100%;">
+            </div>
+            
+            <div style="margin-bottom: 8px; margin-top: 12px;">
+                <div style="font-size: 11px; color: #949ba4; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.3px;">Deploy Modes</div>
+                <div class="checkbox-label" style="margin-bottom: 4px; padding: 6px 10px;">
+                    <input type="checkbox" id="cashbackModeToggle">
+                    <span style="font-size: 13px;">Pump.fun Cashback Mode</span>
+                </div>
+                <div class="checkbox-label" style="padding: 6px 10px;">
+                    <input type="checkbox" id="bonkersModeToggle">
+                    <span style="font-size: 13px;">BONKERS Mode</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-bottom: 16px; padding-top: 12px; border-top: 1px solid #3f4147;">
+            <div style="font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #f2f3f5;">BNB Deploys</div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; margin-bottom: 4px; color: #b5bac1;">BNB API Key</label>
+                <input type="password" id="bnbApiKeyInput" placeholder="Enter your BNB encrypted API key" style="width: 100%;">
+                <div id="bnbApiKeyError" style="font-size: 10px; color: #dc2626; margin-top: 2px; min-height: 14px;"></div>
+                <div style="font-size: 10px; color: #8e9297; margin-top: 4px;">
+                    Learn how to get your API key at <a href="https://j7tracker.io/external/docs" target="_blank" style="color: #00a8fc; text-decoration: none;">j7tracker.io/external/docs</a>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+                <label style="display: block; font-size: 12px; margin-bottom: 4px; color: #b5bac1;">Buy Amount (BNB)</label>
+                <input type="number" id="bnbBuyAmountInput" placeholder="1.5" min="0" step="0.1" style="width: 100%;">
+            </div>
+        </div>
+        
+        <div id="deploySettingsStatus" style="font-size: 11px; margin-top: 6px; min-height: 16px; text-align: center;"></div>
+    </div>
+    
+    <div class="footer">
+        v1.8
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html> 
